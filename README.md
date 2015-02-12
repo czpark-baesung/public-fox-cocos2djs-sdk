@@ -51,7 +51,7 @@ F.O.X SDKをアプリケーションに導入することで、以下の機能�
 
 ##2.1	SDKの展開
 
-ダウンロードしたSDK「FOX_Cocos2dx_SDK_<version>.zip」をOS上に展開します。Classesフォルダ内に同梱されているファイルは以下の通りです。
+ダウンロードしたSDK「FOX_Cocos2djs_SDK_<version>.zip」をOS上に展開します。Classesフォルダ内に同梱されているファイルは以下の通りです。
 
 ファイル名|必須|概要
 :--------|:-------------:|:--------:
@@ -59,7 +59,7 @@ jsb_Cocos2dxFox_auto.cpp|必須|JavaScriptからC++を使用するためのjsb�
 jsb_Cocos2dxFox_auto.hpp|必須|JavaScriptからC++を使用するためのjsbファイル
 Cocos2dxFox.h|必須|ヘッダファイル。Cocos2d-xからSDKを使用するためのラッパー
 Cocos2dxFox.mm|	iOS専用	|ライブラリファイル。Cocos2d-xからFOX SDKを使用するためのiOS用のラッパー
-Cocos2dxFox.cpp|オプション|ヘッダファイル。Cocos2d-xからPush通知を行うためのラッパー
+Cocos2dxFox.cpp|Android専用|ライブラリファイル。Cocos2d-xからFOX SDKを使用するためのAndroid用のラッパー
 FoxVersionPlugin.h|オプション|ヘッダファイル。Cocos2d-xからバンドルバージョンを制御するラッパー
 FoxVersionDelegate.m|オプション|ライブラリファイル。Cocos2d-xからバンドルバージョンを制御するラッパー|
 FoxVersionPlugin.h|オプション|ヘッダファイル。Cocos2d-xからバンドルバージョンを制御するラッパー|
@@ -86,7 +86,6 @@ SDKダウンロードサイトからFOX_iOS_SDK_<version>.zipをダウンロー�
 ##2.2	ライブラリの組み込み
 * Xcodeのメニュー「File」→「Add Files to “XXX”」を選択
 * Cocos2dxFox.h、Cocos2dxFox.mmを組み込んでください。Cocos2dxFox.cppはAndroid用ライブラリであるため、追加の必要はありません。
-* プッシュ通知機能を使う場合は、FoxNotifyPlugin.h、FoxNotifyPlugin.mの2ファイルを組み込んでください。
 * バンドルバージョン判定機能を使う場合は、FoxVersionDelegate.h、FoxVersionDelegate .mmとFoxVersionPlugin.h、FoxVersionPlugin.mmの計4ファイルを組み込んでください。
 * リエンゲージメント計測を行う場合はFoxReengagePlugin.hとFoxReengagePlugin.mの2ファイルを組み込んでください。
 * 「Copy items into destination group’s folder」にチェック
@@ -170,15 +169,14 @@ SDKの動作に必要な設定をplistに追加します。「AppAdForce.plist�
 #3.	Android用 プロジェクトの設定
 ##3.1	SDKの展開
 
-ダウンロードしたSDK「FOX_Cocos2dx_SDK_<version>.zip」をOS上に展開します。<br>
+ダウンロードしたSDK「FOX_Cocos2djs_SDK_<version>.zip」をOS上に展開します。<br>
 「FOX_Android_SDK_<version>」フォルダに同梱されている「AppAdForce.jar」を開発環境に導入します。次に、Eclipseプロジェクトへの導入手順について説明します。
 
 |ファイル名|必須|概要|
 |:------:|:------:|:------|
 |AppAdForce.jar|必須|AndroidのネイティブSDK。通常成果・LTV成果・アクセス解析を計測することができます。|
-|gcm.jar|オプション|プッシュ通知機能を利用する際に導入ください。|
 
-※「FOX_Cocos2dx_SDK_<version>.zip」に「FOX_Android_SDK_<version>」フォルダが含まれていない場合はSDKダウンロードサイトからFOX_Android_SDK_<version>.zipをダウンロードの上、ご使用ください。
+※「FOX_Cocos2djs_SDK_<version>.zip」に「FOX_Android_SDK_<version>」フォルダが含まれていない場合はSDKダウンロードサイトからFOX_Android_SDK_<version>.zipをダウンロードの上、ご使用ください。
 
 ##3.2	プロジェクトへの導入
 
@@ -271,11 +269,10 @@ FOXプラグインをCocos2d-xに登録するため、AppDelegate.cppを編集�
 ヘッダファイルをインクルード
 
 	#include "Cocos2dxFox.h"
-	#include "jsb_Cocos2dxFox_auto.hpp"
 	
 成果通知のコードをJavaScript上に記述
 
-	cc.FoxPlugin.sendConversion(“default”);
+	FoxPlugin::sendConversion(“default”);
 
 sendConversionメソッドの引数には、通常は上記の通り"default"という文字列をそのまま指定してください。
 
@@ -310,10 +307,7 @@ URLスキームで起動されるActivityのlaunchModeが"singleTask"または"s
 #5 LTV計測の実装
 
 
-LTV計測により、広告流入別の課金金額や入会数などを計測することができます。計測のために、任意の地点にLTV成果通信を行うコードを追加します。ソースの編集は、成果が上がった後に実行されるスクリプトに処理を記述します。例えば、会員登録やアプリ内課金後の課金計測では、登録・課金処理実行後のコールバック内にLTV計測処理を記述します。成果がアプリ内部で発生する場合、成果処理部に以下のように記述してください。ヘッダをインクルード
-	#include “Cocos2dxFox.h”
-	#include "jsb_Cocos2dxFox_auto.hpp"
-LTV成果の計測のコードをJavaScript上に記述
+LTV計測により、広告流入別の課金金額や入会数などを計測することができます。計測のために、任意の地点にLTV成果通信を行うコードを追加します。ソースの編集は、成果が上がった後に実行されるスクリプトに処理を記述します。例えば、会員登録やアプリ内課金後の課金計測では、登録・課金処理実行後のコールバック内にLTV計測処理を記述します。成果がアプリ内部で発生する場合、成果処理部に以下のように記述してください。LTV成果の計測のコードをJavaScript上に記述
 	cc.FoxPlugin.sendLtv(成果地点ID);
 > 成果地点ID(必須)：管理者より連絡します。その値を入力してください。* [sendLtvConversionの詳細](./doc/send_ltv_conversion/ja)
 
@@ -365,8 +359,7 @@ Androidの場合、以下の設定が必要です。
 8. アプリを終了し、バックグラウンドからも削除
 9. 再度アプリを起動
 10. 弊社へ3,6,7,9の時間をお伝えください。正常に計測が行われているか確認致します。
-11. 弊社側の確認にて問題がなければテスト完了となります。#9 その他機能の実装
-* [プッシュ通知の実装](./doc/notify/ja/)#10 最後に必ずご確認ください（これまで発生したトラブル集）###URLスキームの設定がされずリリースされたためブラウザからアプリに遷移ができない
+11. 弊社側の確認にて問題がなければテスト完了となります。#9 最後に必ずご確認ください（これまで発生したトラブル集）###URLスキームの設定がされずリリースされたためブラウザからアプリに遷移ができない
 Cookie計測を行いブラウザを起動した場合には、URLスキームを利用してアプリケーションに遷移します。この際、独自のURLスキームが設定されている必要があります。###URLスキームに大文字が含まれ、正常にアプリに遷移されない
 環境によって、URLスキームの大文字小文字が判別されないことにより正常にURLスキームの遷移が行えない場合があります。
 URLスキームは全て小文字で設定を行ってください。
