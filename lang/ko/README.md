@@ -97,16 +97,16 @@ SDK 다운로드 사이트로부터 FOX_iOS_SDK_<버전>.zip을 다운로드한 
 
 [라이브러리를 추가를 위한 자세한 설명](./doc/integration/ko/README.md)
 
-##2.3 Cocos2d-jsプロジェクトのClassesへの導入
-* jsb_Cocos2dxFox_auto.cppとjsb_Cocos2dxFox_auto.hppをプロジェクト配下のClassesへコピー<br>
-  (Androidプロジェクトと共通)
+##2.3 Cocos2d-js 프로젝트의 Classes에 추가
+* jsb_Cocos2dxFox_auto.cpp과 jsb_Cocos2dxFox_auto.hpp를 프로젝트의 Classes에 복사<br>
+  (Android 프로젝트와 공통)
 
-##2.4 フレームワークの追加
+##2.4 프레임워크 추가
 
-次のフレームワークをプロジェクトにリンクしてください。
+다음 프레임 워크를 프로젝트에 링크해 주십시오.
 
 <table>
-<tr><th>フレームワーク名</th><th>Status</th></tr>
+<tr><th>프레임워크 명</th><th>Status</th></tr>
 <tr><td>AdSupport.framework</td><td>Optional</td></tr>
 <tr><td>iAd.framework </td><td>Required</td></tr>
 <tr><td>Security.framework </td><td>Required </td></tr>
@@ -114,15 +114,15 @@ SDK 다운로드 사이트로부터 FOX_iOS_SDK_<버전>.zip을 다운로드한 
 <tr><td>SystemConfiguration.framework </td><td>Required </td></tr>
 </table>
 
-> AdSupport.frameworkはiOS 6以降で追加されたフレームワークのため、アプリケーションをiOS 5以前でも動作させる(iOS Deployment Targetを5.1以下に設定する)場合にはweak linkを行うために”Optional”に設定してください。
+> AdSupport.framework은 iOS 6 이후에 추가된 프레임워크이기 때문에, 앱을 iOS 5 이전 버전에서도 동작시킬(iOS Deployment Target을 5.1 이하로 설정하는) 경우에는 weak link로 설정하기 위해 "Optional"로 설정하십시오.
 
-![フレームワーク設定01](./doc/config_framework/ja/img01.png)
+![프레임워크 설정01](./doc/config_framework/ko/img01.png)
 
-[フレームワーク設定の詳細](./doc/config_framework/ja/README.md)
+[프레임워크의 설정 위한 자세한 설명](./doc/config_framework/ko/README.md)
 
-##2.5 SDKの設定
+##2.5 SDK 설정
 
-SDKの動作に必要な設定をplistに追加します。「AppAdForce.plist」というファイルをプロジェクトの任意の場所に作成し、次のキーと値を入力してください。
+SDK의 동작에 필요한 설정을 plist에 추가합니다. 「AppAdForce.plist」 파일을 프로젝트의 원하는 위치에 생성하고 다음의 키와 값을 입력하십시오.
 
 <table>
 <tr>
@@ -133,22 +133,22 @@ SDKの動作に必要な設定をplistに追加します。「AppAdForce.plist�
 <tr>
   <td>APP_ID</td>
   <td>String</td>
-  <td>Force Operation X管理者より連絡しますので、その値を入力してください。</td>
+  <td>Force Operation X 관리자로부터 받은 SDK 도입 안내 메일의 값을 입력해 주십시오.</td>
 </tr>
 <tr>
   <td>SERVER_URL</td>
   <td>String</td>
-  <td>Force Operation X管理者より連絡しますので、その値を入力してください。</td>
+  <td>Force Operation X 관리자로부터 받은 SDK 도입 안내 메일의 값을 입력해 주십시오.</td>
 </tr>
 <tr>
   <td>APP_SALT</td>
   <td>String</td>
-  <td>Force Operation X管理者より連絡しますので、その値を入力してください。</td>
+  <td>Force Operation X 관리자로부터 받은 SDK 도입 안내 메일의 값을 입력해 주십시오.</td>
 </tr>
 <tr>
   <td>APP_OPTIONS</td>
   <td>String</td>
-  <td>何も入力せず、空文字の状態にしてください。</td>
+  <td>아무것도 입력하지 않습니다.(공백 상태)</td>
 </tr>
 <tr>
   <td>CONVERSION_MODE</td>
@@ -158,32 +158,37 @@ SDKの動作に必要な設定をplistに追加します。「AppAdForce.plist�
 <tr>
   <td>ANALYTICS_APP_KEY</td>
   <td>String</td>
-  <td>Force Operation X管理者より連絡しますので、その値を入力してください。<br />アクセス解析を利用しない場合は設定の必要はありません。</td>
+  <td>Force Operation X 관리자로부터 받은 SDK 도입 안내 메일의 값을 입력해 주십시오.<br />액세스 분석을 이용하지 않는 경우는 설정할 필요가 없습니다.</td>
 </tr>
 </table>
 
-![フレームワーク設定01](./doc/config_plist/ja/img05.png)
+![프레임워크 설정01](./doc/config_plist/ko/img05.png)
 
-[SDK設定の詳細](./doc/config_plist/ja/README.md)
+[SDK 설정을 위한 자세한 설명](./doc/config_plist/ko/README.md)
 
-[AppAdForce.plistサンプル](./doc/config_plist/AppAdForce.plist)
+[AppAdForce.plist 샘플](./doc/config_plist/AppAdForce.plist)
 
 
-#3.	Android用 プロジェクトの設定
-##3.1	SDKの展開
+#3.	Android용 프로젝트 설정
+##3.1	SDK의 압축 해제
 
 ダウンロードしたSDK「FOX_Cocos2djs_SDK_<version>.zip」をOS上に展開します。<br>
-「FOX_Android_SDK_<version>」フォルダに同梱されている「AppAdForce.jar」を開発環境に導入します。次に、Eclipseプロジェクトへの導入手順について説明します。
+다운로드 한 SDK 「FOX_Cocos2dx_SDK_<버전>.zip」의 압축을 풉니다.
 
-|ファイル名|必須|概要|
+「FOX_Android_SDK_<버전>」 폴더에 존재하는 「AppAdForce.jar」을 개발 환경에 추가합니다. Eclipse 프로젝트에 추가하는 방법에 대해서는 따로 설명하겠습니다.
+
+|파일명|필수|개요|
 |:------:|:------:|:------|
-|AppAdForce.jar|必須|AndroidのネイティブSDK。通常成果・LTV成果・アクセス解析を計測することができます。|
+|AppAdForce.jar|필수|Android의 네이티브 SDK. 보통성과 / LTV 성과 / 액세스 분석의 측정 가능합니다.|
 
-※「FOX_Cocos2djs_SDK_<version>.zip」に「FOX_Android_SDK_<version>」フォルダが含まれていない場合はSDKダウンロードサイトからFOX_Android_SDK_<version>.zipをダウンロードの上、ご使用ください。
+※「FOX_Cocos2djs_SDK_<버전>.zip」에 「FOX_Android_SDK_<버전>」 폴더가 포함되어 있지 않은 경우는 SDK 다운로드 사이트에서 FOX_Android_SDK_<버전>.zip을 다운로드한 후 사용해 주십시오.
 
-##3.2	プロジェクトへの導入
+##3.2	프로젝트에 추가
 
-既にアプリケーションにSDKが導入されている場合には、[最新バージョンへのアップデートについて](./doc/update/ja)をご参照ください。
+이미 앱에 SDK가 설치되어있는 경우에는 [최신 버전으로 업데이트](./doc/update/ko/README.md)를 참조하십시오.
+
+다운로드 한 SDK 「FOX_Android_SDK_.zip을 전개해 「AppAdForce.jar」를 앱의 프로젝트에 포함 시키십시오.
+
 
 ダウンロードしたSDK「FOX_Android_SDK_<version>.zip」を展開し、「AppAdForce.jar」をアプリケーションのプロジェクトに組み込んでください。
 
